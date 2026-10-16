@@ -1,0 +1,43 @@
+{
+  "symbol": "RELIANCE",
+  "trade_type": "INTRADAY",
+  "asset_class": "equity",
+  "exchange": "NSE",
+  "config": {
+    "brokerage_pct": 0.0005,
+    "slippage_pct": 0.0003,
+    "initial_capital": 100000.0,
+    "risk_per_trade_pct": 0.01,
+    "max_open_trades": 1,
+    "asset_class": "equity",
+    "exchange": "NSE",
+    "ml_threshold": null,
+    "enforce_315_square_off": true
+  },
+  "metrics": {
+    "total_trades": 0,
+    "win_trades": 0,
+    "loss_trades": 0,
+    "square_off_trades": 0,
+    "win_rate_pct": 0.0,
+    "avg_rr": 0.0,
+    "avg_win_r": 0.0,
+    "avg_loss_r": 0.0,
+    "gross_expectancy_r": 0.0,
+    "net_expectancy_r": 0.0,
+    "gross_profit_factor": 0.0,
+    "net_profit_factor": 0.0,
+    "max_drawdown_r": 0.0,
+    "max_drawdown_pct": 0.0,
+    "gross_profit": 0.0,
+    "net_profit": 0.0,
+    "net_profit_pct": 0.0,
+    "total_costs": 0.0,
+    "initial_capital": 100000.0,
+    "final_capital": 100000.0,
+    "per_day_breakdown": [],
+    "per_symbol_breakdown": []
+  },
+  "trades": [],
+  "generated_at": "2026-10-15T15:25:31.449455+00:00"
+}

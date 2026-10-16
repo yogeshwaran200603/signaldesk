@@ -1,0 +1,11 @@
+{
+  "name": "signaldesk-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev:all": "node web/scripts/dev-all.mjs",
+    "dev": "npm --prefix web run dev",
+    "build": "npm --prefix web run build",
+    "lint": "npm --prefix web run lint"
+  }
+}

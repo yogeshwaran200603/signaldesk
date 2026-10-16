@@ -1,0 +1,30 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    match /users/{userId} {
+      allow read, write: if isOwner(userId);
+
+      match /watchlist/{symbol} {
+        allow read, write: if isOwner(userId);
+      }
+    }
+
+    match /signals/{signalId} {
+      allow read: if isAuthenticated() && resource.data.uid == request.auth.uid;
+      allow write: if false; // Only backend service account can write
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

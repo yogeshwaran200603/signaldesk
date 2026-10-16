@@ -1,0 +1,67 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper: Check if requesting user is authenticated
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Helper: Check if requesting user matches document owner
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    // Users collection: users/{userId}
+    // Read and write only when request.auth.uid == userId.
+    // Clients may NOT write or alter whatsappVerified (restricted to Backend Admin SDK).
+    match /users/{userId} {
+      allow read: if isOwner(userId);
+      
+      // On create, allow only if whatsappVerified is not present or is set to false
+      allow create: if isOwner(userId) && (
+        !('whatsappVerified' in request.resource.data) || 
+        request.resource.data.whatsappVerified == false
+      );
+
+      // On update, clients cannot modify the whatsappVerified field
+      allow update: if isOwner(userId) && (
+        !request.resource.data.diff(resource.data).affectedKeys().hasAny(['whatsappVerified'])
+      );
+
+      allow delete: if isOwner(userId);
+
+      // Watchlist subcollection: users/{userId}/watchlist/{symbol}
+      // Read/write only when request.auth.uid == userId
+      match /watchlist/{symbol} {
+        allow read, write: if isOwner(userId);
+      }
+    }
+
+    // Signals collection: signals/{signalId}
+    // Readable only by the owner (resource.data.uid == request.auth.uid); client writes denied.
+    match /signals/{signalId} {
+      allow read: if isAuthenticated() && resource.data.uid == request.auth.uid;
+      allow write: if false; // Only backend service account (Admin SDK) writes signals
+    }
+
+    // Live Prices: livePrices/{symbol}
+    // Readable for signed-in users only; client writes denied.
+    match /livePrices/{symbol} {
+      allow read: if isAuthenticated();
+      allow write: if false; // Backend writes live price stream
+    }
+
+    // Engine Status: engineStatus/{docId}
+    // Readable for signed-in users only; client writes denied.
+    match /engineStatus/{docId} {
+      allow read: if isAuthenticated();
+      allow write: if false; // Backend heartbeat writes only
+    }
+
+    // Catch-all: Deny everything else by default
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

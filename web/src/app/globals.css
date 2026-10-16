@@ -1,0 +1,126 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --bg-base: #F4F5F8;
+  --bg-card: #FFFFFF;
+  --bg-raised: #FFFFFF;
+  --bg-hover: #F1F5F9;
+  --text-main: #111827;
+  --text-muted: #4B5563;
+  --border-subtle: #E5E7EB;
+  --border-strong: #D1D5DB;
+  --accent-blue: #1F5BFF;
+}
+
+.dark {
+  --bg-base: #060A14;
+  --bg-card: #0E1422;
+  --bg-raised: #151C2E;
+  --bg-hover: #1C253D;
+  --text-main: #F1F5F9;
+  --text-muted: #94A3B8;
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.16);
+  --accent-blue: #1F5BFF;
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: light;
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
+body {
+  color: var(--text-main);
+  background: linear-gradient(135deg, #FFFFFF 0%, #F4F5F8 100%);
+  min-height: 100vh;
+  overflow-x: hidden;
+  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  transition: background-color 200ms ease, color 200ms ease;
+}
+
+.dark body {
+  background: var(--bg-base);
+}
+
+/* Tabular numbers for all financial data */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Subtle space mesh overlay for dark mode */
+.dark .bg-octa-grid {
+  background-size: 48px 48px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+}
+
+.bg-octa-grid {
+  background-size: 48px 48px;
+  background-image: 
+    linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+}
+
+.dark .bg-radial-hero {
+  background: radial-gradient(circle at 50% 10%, rgba(47, 107, 255, 0.12) 0%, rgba(6, 10, 20, 0.95) 60%, #060A14 100%);
+}
+
+.bg-radial-hero {
+  background: radial-gradient(circle at 50% 10%, rgba(47, 107, 255, 0.08) 0%, rgba(248, 250, 252, 0.95) 60%, #f8fafc 100%);
+}
+
+/* Glassmorphism helpers */
+.glass-octa {
+  background: rgba(14, 20, 34, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.dark .glass-octa-elevated {
+  background: rgba(21, 28, 46, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.glass-octa-elevated {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.25);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(47, 107, 255, 0.6);
+}
+
+/* Reduced motion overrides */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

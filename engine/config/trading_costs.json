@@ -1,0 +1,49 @@
+{
+  "_comment": "SignalDesk Trading Cost Model for Indian Markets (NSE Cash Intraday MIS) & Multi-Asset Fallback",
+  "nse_equity_intraday": {
+    "brokerage": {
+      "type": "min_rate_or_flat",
+      "percent": 0.0003,
+      "flat_cap_per_order": 20.0,
+      "description": "0.03% or ₹20 flat per executed order, whichever is lower (applied on entry & exit)"
+    },
+    "stt": {
+      "sell_percent": 0.00025,
+      "buy_percent": 0.0,
+      "description": "Securities Transaction Tax: 0.025% on SELL turnover only for equity intraday"
+    },
+    "exchange_transaction_charge": {
+      "percent": 0.0000297,
+      "description": "NSE transaction charges: 0.00297% on both buy and sell turnover"
+    },
+    "sebi_turnover_charge": {
+      "percent": 0.000001,
+      "description": "SEBI turnover charge: ₹10 per crore (0.0001%) on both buy and sell turnover"
+    },
+    "stamp_duty": {
+      "buy_percent": 0.00003,
+      "sell_percent": 0.0,
+      "description": "Stamp duty: 0.003% on BUY turnover only for intraday cash"
+    },
+    "gst": {
+      "percent": 0.18,
+      "applies_to": ["brokerage", "exchange_transaction_charge", "sebi_turnover_charge"],
+      "description": "18% GST on (Brokerage + Exchange Charges + SEBI Charges)"
+    },
+    "slippage": {
+      "default_percent": 0.0003,
+      "description": "Configurable execution slippage per leg (default: 0.03%)"
+    }
+  },
+  "crypto_spot": {
+    "brokerage": {
+      "type": "flat_percent",
+      "percent": 0.0010,
+      "description": "0.10% taker fee per leg"
+    },
+    "slippage": {
+      "default_percent": 0.0005,
+      "description": "0.05% slippage per leg"
+    }
+  }
+}
